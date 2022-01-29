@@ -1,0 +1,26 @@
+body {
+  margin: 0 auto;
+}
+
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 600px;
+  height: 600px;
+  background: lightcyan;
+  margin: 0 auto;
+}
+
+.pixel {
+  flex: 0 0;
+  /* outline: .5px solid lightgray; */
+  box-shadow: 0px 0px 1px 0px #cfcfcf;
+}
+
+.pixel-outline {
+
+}
+
+.pixel:hover {
+  background-color: crimson;
+}
