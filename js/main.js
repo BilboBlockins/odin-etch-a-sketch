@@ -5,6 +5,13 @@ initSketch(24, 650);
 pixelList = document.querySelectorAll('.pixel')
 console.log(pixelList)
 
+pixelList.forEach(pixel => {
+  pixel.addEventListener("click", (e) => {
+    console.log(e, pixel)
+    pixel.style.backgroundColor = "black"
+  })
+})
+
 function initSketch(dim, canvasSize) {
   const grid = document.querySelector(".grid-container");
   grid.style.width = `${canvasSize}px`;
