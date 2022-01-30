@@ -1,16 +1,28 @@
 console.log("Main loaded")
 
-initSketch(24, 650);
+main();
 
-pixelList = document.querySelectorAll('.pixel')
-console.log(pixelList)
+function main() {
+  initSketch(60, 650);
 
-pixelList.forEach(pixel => {
-  pixel.addEventListener("click", (e) => {
-    console.log(e, pixel)
-    pixel.style.backgroundColor = "black"
+  pixelList = document.querySelectorAll('.pixel')
+  console.log(pixelList)
+  
+  pixelList.forEach(pixel => {
+    pixel.addEventListener("mousedown", (e) => {
+      pixel.style.backgroundColor = "black"
+    });
+    //this is triggering too many events
+    pixel.addEventListener("mousemove", (e) => {
+      if(e.buttons === 1) {
+        console.log(e, pixel)
+        pixel.style.backgroundColor = "black"
+      }
+
+    });
   })
-})
+}
+
 
 function initSketch(dim, canvasSize) {
   const grid = document.querySelector(".grid-container");
