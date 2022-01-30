@@ -4,23 +4,34 @@ main();
 
 function main() {
   initSketch(60, 650);
+  addPixelEvents();
+}
 
-  pixelList = document.querySelectorAll('.pixel')
+function addPixelEvents() {
+  let draw = false
+
+  let pixelList = document.querySelectorAll('.pixel')
   console.log(pixelList)
   
   pixelList.forEach(pixel => {
-    pixel.addEventListener("mousedown", (e) => {
+    pixel.addEventListener("mouseover", (e) => {
+      if(!draw) return;
       pixel.style.backgroundColor = "black"
     });
-    //this is triggering too many events
-    pixel.addEventListener("mousemove", (e) => {
-      if(e.buttons === 1) {
-        console.log(e, pixel)
-        pixel.style.backgroundColor = "black"
-      }
+    pixel.addEventListener("mousedown", (e) => {
+      console.log(e, pixel)
+      pixel.style.backgroundColor = "black"
 
     });
-  })
+  });
+
+  window.addEventListener("mousedown", function(){
+    draw = true
+  });
+  window.addEventListener("mouseup", function(){
+    draw = false
+  });
+
 }
 
 
