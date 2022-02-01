@@ -4,10 +4,16 @@ main();
 
 function main() {
   initSketch(60, 650);
-  addPixelEvents();
+  addPixelEvents("black");
 }
 
-function addPixelEvents() {
+function updateCanvas(color, canvasSize) {
+ // pixelList.forEach(pixel => {
+  	
+ // });
+}
+
+function addPixelEvents(color) {
   let draw = false
 
   let pixelList = document.querySelectorAll('.pixel')
@@ -16,11 +22,11 @@ function addPixelEvents() {
   pixelList.forEach(pixel => {
     pixel.addEventListener("mouseover", (e) => {
       if(!draw) return;
-      pixel.style.backgroundColor = "black"
+      pixel.style.backgroundColor = color;
     });
     pixel.addEventListener("mousedown", (e) => {
       console.log(e, pixel)
-      pixel.style.backgroundColor = "black"
+      pixel.style.backgroundColor = color;
 
     });
   });
