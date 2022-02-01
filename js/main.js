@@ -5,6 +5,12 @@ main();
 function main() {
   initSketch(60, 650);
   addPixelEvents("black");
+  let colorPicker = document.querySelector("#color");
+  colorPicker.addEventListener("change", watchColorPicker, false)
+}
+
+function watchColorPicker(e) {
+  console.log(e.target.value)
 }
 
 function updateCanvas(color, canvasSize) {
