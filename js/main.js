@@ -3,6 +3,11 @@ console.log("Main loaded")
 let paintColor = "#000000";
 let dim = 5;
 let canvasSize = 600;
+let canvasData = [];
+
+const downloadBtn = document.querySelector("#downloadBtn")
+downloadBtn.onclick = () => {downloadData(canvasData, "pixel_data.txt")}
+
 
 main();
 
@@ -22,8 +27,18 @@ function watchColorPicker(e) {
 function updateCanvas(color, canvasSize) {
  // pixelList.forEach(pixel => {
   	
- // });
-  
+ // }); 
+}
+
+function downloadData(obj, filename){
+  let blob = new Blob([JSON.stringify(obj, null, 2)], {type: "application/json;charset=utf-8"}).slice(2,-1);
+  let url = URL.createObjectURL(blob);
+  let elem = document.createElement("a");
+  elem.href = url;
+  elem.download = filename;
+  document.body.appendChild(elem);
+  elem.click();
+  document.body.removeChild(elem);
 }
 
 function addPixelEvents(color) {
@@ -39,11 +54,14 @@ function addPixelEvents(color) {
       pixel.style.backgroundColor = paintColor;
       pixelList[parseInt(pixel.id)] = paintColor;
       console.log(parseInt(pixel.id));
+      canvasData[parseInt(pixel.id)] = paintColor;
     });
     pixel.addEventListener("mousedown", (e) => {
       pixel.style.backgroundColor = paintColor;
       pixelList[parseInt(pixel.id)] = paintColor;
+      canvasData[parseInt(pixel.id)] = paintColor;
       console.log(parseInt(pixel.id));
+      console.log(canvasData);
     });
   });
 
@@ -96,6 +114,7 @@ function makePixelData(initialValue, dim) {
   for(let i=0; i<dim*dim; i++) {
     pixelData[i] = initialValue;
   }
+  canvasData = pixelData;
   return pixelData;
 }
 
