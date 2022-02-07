@@ -1,13 +1,39 @@
 console.log("Main loaded")
 
 let paintColor = "#000000";
-let dim = 5;
+let dim = 8;
 let canvasSize = 600;
 let canvasData = [];
+let loadData = [];
+const gridContainer = document.querySelector('.grid-container')
 
 const downloadBtn = document.querySelector("#downloadBtn")
 downloadBtn.onclick = () => {downloadData(canvasData, "pixel_data.txt")}
 
+document.querySelector("#inputFile")
+  .addEventListener("input", function() {
+    
+  let fr = new FileReader();
+  fr.onload = function(){
+    loadData = JSON.parse(fr.result)
+    clearPixels(gridContainer)
+    initSketch(Math.sqrt(loadData.length), canvasSize)
+    addPixelEvents(paintColor);
+    console.log(loadData);
+    canvasUpdate(loadData);
+    
+  }
+    
+  fr.readAsText(this.files[0]);
+})
+
+document.querySelector("#grid")
+  .addEventListener("change", function(e) {
+  console.log(e.target.value)
+  clearPixels(gridContainer);
+  initSketch(e.target.value, canvasSize)
+  addPixelEvents(paintColor);
+})
 
 main();
 
@@ -24,6 +50,20 @@ function watchColorPicker(e) {
   paintColor = e.target.value;
 }
 
+function clearPixels(parent) {
+  while(parent.firstChild) {
+  	parent.removeChild(parent.firstChild)
+  }	
+}
+
+function canvasUpdate(canvasData) {
+  let pixels = document.querySelectorAll(".pixel")
+  console.log(pixels)
+  for(let i=0; i<canvasData.length; i++) {
+    pixels[i].style.backgroundColor = canvasData[i] 
+  }	
+}
+
 function updateCanvas(color, canvasSize) {
  // pixelList.forEach(pixel => {
   	
@@ -31,7 +71,7 @@ function updateCanvas(color, canvasSize) {
 }
 
 function downloadData(obj, filename){
-  let blob = new Blob([JSON.stringify(obj, null, 2)], {type: "application/json;charset=utf-8"}).slice(2,-1);
+  let blob = new Blob([JSON.stringify(obj, null, 2)], {type: "application/json;charset=utf-8"});
   let url = URL.createObjectURL(blob);
   let elem = document.createElement("a");
   elem.href = url;
