@@ -1,75 +1,75 @@
 console.log("Main loaded")
 
+//Init variables - should be set dynamically
 let paintColor = "#000000";
-let dim = 8;
+let dim = 32;
 let canvasSize = 600;
+let shadeUp = false;
+let shadeDown = false;
 let canvasData = [];
 let loadData = [];
 const gridContainer = document.querySelector('.grid-container')
 
-const downloadBtn = document.querySelector("#downloadBtn")
-downloadBtn.onclick = () => {downloadData(canvasData, "pixel_data.txt")}
+//Event listener for downloading current canvas image file
+document.querySelector("#downloadBtn")
+  .addEventListener('click', function() {
+  downloadData(canvasData, "pixel_data.txt")
+});
 
+//Event listener for loading pixel art file
 document.querySelector("#inputFile")
   .addEventListener("input", function() {
-    
   let fr = new FileReader();
   fr.onload = function(){
-    loadData = JSON.parse(fr.result)
-    clearPixels(gridContainer)
-    initSketch(Math.sqrt(loadData.length), canvasSize)
+    loadData = JSON.parse(fr.result);
+    clearPixels(gridContainer);
+    initSketch(Math.sqrt(loadData.length), canvasSize);
     addPixelEvents(paintColor);
     console.log(loadData);
-    canvasUpdate(loadData);
-    
+    updateCanvas(loadData);
   }
-    
   fr.readAsText(this.files[0]);
-})
+});
 
-document.querySelector("#grid")
+//Event listener for grid size change
+let gridSize = document.querySelector("#grid")
   .addEventListener("change", function(e) {
   console.log(e.target.value)
   clearPixels(gridContainer);
   initSketch(e.target.value, canvasSize)
   addPixelEvents(paintColor);
-})
+});
 
-main();
-
+//Main function to load drawing
 function main() {
- 
   let colorPicker = document.querySelector("#color");
-  //colorPicker.addEventListener("change", watchColorPicker, false)
   colorPicker.addEventListener("input", watchColorPicker, false);
   initSketch(dim, canvasSize);
   addPixelEvents(paintColor);
 }
 
+//Updates paint variable whenever the color picker is changed
 function watchColorPicker(e) {
   paintColor = e.target.value;
+  console.log(paintColor);
 }
 
+//Removes all pixels from canvas area
 function clearPixels(parent) {
   while(parent.firstChild) {
   	parent.removeChild(parent.firstChild)
   }	
 }
 
-function canvasUpdate(canvasData) {
+//Paints the canvas from array of colors
+function updateCanvas(canvasData) {
   let pixels = document.querySelectorAll(".pixel")
-  console.log(pixels)
   for(let i=0; i<canvasData.length; i++) {
     pixels[i].style.backgroundColor = canvasData[i] 
   }	
 }
 
-function updateCanvas(color, canvasSize) {
- // pixelList.forEach(pixel => {
-  	
- // }); 
-}
-
+//Lets you download image data as a color list
 function downloadData(obj, filename){
   let blob = new Blob([JSON.stringify(obj, null, 2)], {type: "application/json;charset=utf-8"});
   let url = URL.createObjectURL(blob);
@@ -81,41 +81,30 @@ function downloadData(obj, filename){
   document.body.removeChild(elem);
 }
 
+//Adds mouse down and mouse over events to the canvas pixels
 function addPixelEvents(color) {
   let draw = false
-
   let pixelList = document.querySelectorAll('.pixel')
-  //console.log(pixelList)
-
-  
   pixelList.forEach(pixel => {
     pixel.addEventListener("mouseover", (e) => {
       if(!draw) return;
       pixel.style.backgroundColor = paintColor;
-      pixelList[parseInt(pixel.id)] = paintColor;
-      console.log(parseInt(pixel.id));
       canvasData[parseInt(pixel.id)] = paintColor;
     });
     pixel.addEventListener("mousedown", (e) => {
       pixel.style.backgroundColor = paintColor;
-      pixelList[parseInt(pixel.id)] = paintColor;
       canvasData[parseInt(pixel.id)] = paintColor;
-      console.log(parseInt(pixel.id));
-      console.log(canvasData);
     });
   });
-
   window.addEventListener("mousedown", function(){
     draw = true
   });
   window.addEventListener("mouseup", function(){
     draw = false
   });
-
 }
 
-
-//Should accept grid of colors
+//Should accept grid of colors probably
 function initSketch(dim, canvasSize) {
   const grid = document.querySelector(".grid-container");
   grid.style.width = `${canvasSize}px`;
@@ -133,22 +122,7 @@ function initSketch(dim, canvasSize) {
   }
 }
 
-function updateCanvas(pixelArray, dim, canvasSize) {
-  //clear grid
-  //const grid = document.querySelector(".grid-container");
-  //grid.innerHTML = "";
-  
-  pixelArray.forEach((row) => {
-    row.forEach((pixel) => {
-      let newPixel = document.createElement('div');
-      newPixel.className = "pixel";
-      newPixel.style.backgroundColor = pixel;
-      newPixel.style.flexBasis = `${canvasSize/dim}px`;
-      grid.appendChild(newPixel);
-    });
-  });	
-}
-
+//function to make a list of pixels
 function makePixelData(initialValue, dim) {
   let pixelData  = new Array(dim*dim);
   for(let i=0; i<dim*dim; i++) {
@@ -158,6 +132,7 @@ function makePixelData(initialValue, dim) {
   return pixelData;
 }
 
+//not needed - simpler to use single dim array instead of 2d array
 function makeGrid(initialValue, dim) {
   let gridData = [];
   for(let i=0; i<dim; i++) {
@@ -170,6 +145,7 @@ function makeGrid(initialValue, dim) {
   return gridData;
 }
 
+//Function to shade hex colors by percentage
 function shadeColor(color, percent) {
   var R = parseInt(color.substring(1,3),16);
   var G = parseInt(color.substring(3,5),16);
@@ -189,3 +165,5 @@ function shadeColor(color, percent) {
 
   return "#"+RR+GG+BB;
 }
+
+main();
