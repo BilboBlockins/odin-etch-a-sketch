@@ -51,11 +51,20 @@ gridSize.addEventListener("change", (e) => {
 
 lightenBtn.addEventListener("click", function() {
   shadeUp = !shadeUp;
+  shadeDown = false;
+  if(shadeUp) {
+    lightenBtn.innerText = "Lighten On"
+  } else {
+  	lightenBtn.innerText = "Lighten Off"
+  }
   console.log(shadeUp)
 });
 
 darkenBtn.addEventListener("click", function() {
   shadeDown = !shadeDown;
+  shadeUp = false;
+  lightenBtn.disabled = !shadeDown;
+  darkenBtn.disabled = shadeDown;
   console.log(shadeDown);
 });
 
