@@ -107,17 +107,25 @@ function addPixelEvents(color) {
   pixelList.forEach(pixel => {
     pixel.addEventListener("mouseover", (e) => {
       if(!draw) return;
-      pixel.style.backgroundColor = paintColor;
-      canvasData[parseInt(pixel.id)] = paintColor;
+      let currentColor = RGBToHex(pixel.style.backgroundColor);
+      if(shadeUp){
+        console.log(currentColor);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, 20);
+      } else if (shadeDown) {
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, -20);
+      } else {
+        pixel.style.backgroundColor = paintColor;
+        canvasData[parseInt(pixel.id)] = paintColor; 	
+      }
     });
     pixel.addEventListener("mousedown", (e) => {
       console.log(pixel);
       let currentColor = RGBToHex(pixel.style.backgroundColor);
       if(shadeUp){
         console.log(currentColor);
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, 10);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, 20);
       } else if (shadeDown) {
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, -10);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, -20);
       } else {
         pixel.style.backgroundColor = paintColor;
         canvasData[parseInt(pixel.id)] = paintColor; 	
@@ -175,34 +183,11 @@ function makeGrid(initialValue, dim) {
 
 //Function to shade hex colors by percentage
 function shadeColorRGB(color, percent) {
-  var R = parseInt(color.substring(1,3),16);
-  var G = parseInt(color.substring(3,5),16);
-  var B = parseInt(color.substring(5,7),16);
-
-  R = parseInt(R * (100 + percent) / 100);
-  G = parseInt(G * (100 + percent) / 100);
-  B = parseInt(B * (100 + percent) / 100);
-
-  R = (R<255)?R:255;  
-  G = (G<255)?G:255;  
-  B = (B<255)?B:255;
-  
-  var RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
-  var GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
-  var BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
-
-  return "#"+RR+GG+BB;
-}
-
-//Function to shade hex colors by percentage
-function shadeColorHex(color, percent) {
   let rgb = color.match(/\d+/g);
   let R = rgb[0];
   let G = rgb[1];
   let B = rgb[2];
   console.log(R)
-  
-  console.log(color)
 
   //var R = parseInt(color.substring(1,3),16);
   //var G = parseInt(color.substring(3,5),16);
@@ -216,15 +201,40 @@ function shadeColorHex(color, percent) {
   G = (G<255)?G:255;  
   B = (B<255)?B:255;
   
-/*
   var RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
   var GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
   var BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
 
   return "#"+RR+GG+BB;
- */
 
   return `rgb(${R},${G},${B})`
+}
+
+//Function to shade hex colors by percentage
+function shadeColorHex(color, percent) {
+  console.log(color, "from hex fuction")
+
+  if(color === "#000000") {
+  	color = "#111111";
+  }
+
+  var R = parseInt(color.substring(1,3),16);
+  var G = parseInt(color.substring(3,5),16);
+  var B = parseInt(color.substring(5,7),16);
+
+  R = parseInt(R * (100 + percent) / 100);
+  G = parseInt(G * (100 + percent) / 100);
+  B = parseInt(B * (100 + percent) / 100);
+
+  R = (R<255)?R:255;  
+  G = (G<255)?G:255;  
+  B = (B<255)?B:255;
+
+  var RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
+  var GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
+  var BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
+
+  return "#"+RR+GG+BB;
 }
 
 function RGBToHex(rgb) {
