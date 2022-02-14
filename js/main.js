@@ -17,6 +17,10 @@ const lightenBtn = document.querySelector(".lightenBtn");
 const darkenBtn = document.querySelector(".darkenBtn");
 
 clearBtn.addEventListener("click", function() {
+  shadeUp = false;
+  shadeDown = false;
+  lightenBtn.innerText = "Lighten Off";
+  darkenBtn.innerText = "Darken Off";
   clearPixels(gridContainer);
   initSketch(gridSize.value, canvasSize)
   addPixelEvents(paintColor);
@@ -52,19 +56,24 @@ gridSize.addEventListener("change", (e) => {
 lightenBtn.addEventListener("click", function() {
   shadeUp = !shadeUp;
   shadeDown = false;
+  darkenBtn.innerText = "Darken Off";
   if(shadeUp) {
-    lightenBtn.innerText = "Lighten On"
+    lightenBtn.innerText = "Lighten On";
   } else {
-  	lightenBtn.innerText = "Lighten Off"
+  	lightenBtn.innerText = "Lighten Off";
   }
-  console.log(shadeUp)
+  console.log(shadeUp);
 });
 
 darkenBtn.addEventListener("click", function() {
   shadeDown = !shadeDown;
   shadeUp = false;
-  lightenBtn.disabled = !shadeDown;
-  darkenBtn.disabled = shadeDown;
+  lightenBtn.innerText = "Lighten Off";
+  if(shadeDown){
+  	darkenBtn.innerText = "Darken On";
+  } else {
+  	darkenBtn.innerText = "Darken Off";
+  }
   console.log(shadeDown);
 });
 
@@ -119,9 +128,9 @@ function addPixelEvents(color) {
       let currentColor = RGBToHex(pixel.style.backgroundColor);
       if(shadeUp){
         console.log(currentColor);
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, 20);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, 15);
       } else if (shadeDown) {
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, -20);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, -15);
       } else {
         pixel.style.backgroundColor = paintColor;
         canvasData[parseInt(pixel.id)] = paintColor; 	
@@ -132,9 +141,9 @@ function addPixelEvents(color) {
       let currentColor = RGBToHex(pixel.style.backgroundColor);
       if(shadeUp){
         console.log(currentColor);
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, 20);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, 15);
       } else if (shadeDown) {
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, -20);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, -15);
       } else {
         pixel.style.backgroundColor = paintColor;
         canvasData[parseInt(pixel.id)] = paintColor; 	
