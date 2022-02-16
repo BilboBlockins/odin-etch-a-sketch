@@ -7,7 +7,7 @@ body {
   flex-wrap: wrap;
   width: 600px;
   height: 600px;
-  background: lightcyan;
+  background: white;
   margin: 0 auto;
 }
 
@@ -28,4 +28,14 @@ body {
 .controls-container {
   width: 600px;
   display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.controls-container button {
+  background-color: #f9f9f9;
+}
+
+.controls-container button:hover {
+  background-color: lightgreen;
 }
