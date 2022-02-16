@@ -24,3 +24,8 @@ body {
 .pixel:hover {
   background-color: crimson;
 }
+
+.controls-container {
+  width: 600px;
+  display: flex;
+}
