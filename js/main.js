@@ -2,8 +2,8 @@ console.log("Main loaded")
 
 //Init variables - should be set dynamically
 let paintColor = "#000000";
-let dim = 32;
-let canvasSize = 600;
+let dim = 36;
+let canvasSize = 400;
 let shadeUp = false;
 let shadeDown = false;
 let canvasData = [];
@@ -16,6 +16,7 @@ const fileBtn = document.querySelector("#inputFile");
 const gridSize = document.querySelector("#grid");
 const lightenBtn = document.querySelector(".lightenBtn");
 const darkenBtn = document.querySelector(".darkenBtn");
+const gridValue = document.querySelector(".gridValue");
 
 clearBtn.addEventListener("click", function() {
   shadeUp = false;
@@ -57,6 +58,7 @@ gridSize.addEventListener("change", (e) => {
   clearPixels(gridContainer);
   initSketch(e.target.value, canvasSize)
   addPixelEvents(paintColor);
+  gridValue.innerText = `${e.target.value}x${e.target.value}`;
 });
 
 lightenBtn.addEventListener("click", function() {

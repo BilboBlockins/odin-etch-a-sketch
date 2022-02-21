@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   </head>
   <body>
+  <div class="etch-a-sketch">
+    <div class="titleText">■ PIXIE-SKETCH ■</div>
     <div class="grid-container" ondragstart="return false">
     </div>
     <div class="controls-container">
-      <label for="color">Paint Color:</label>
+      <label class="colorLabel" for="color">Paint Color:</label>
       <input type="color" id="color" name="color">
       <button class="clearBtn">Clear</button>
       <button class="eraseBtn">Erase</button>
@@ -21,8 +23,9 @@
       <button class="lightenBtn">Lighten Off</button>
       <button class="darkenBtn">Darken Off</button>
       <input type="range" id="grid" name="grid" min="8" max="64">
-      <label for="grid">Grid Size: <span class="gridValue">36x36</span></label>
+      <label class="gridLabel" for="grid">Grid Size: <span class="gridValue">36x36</span></label>
     </div>
+  </div>
   </body>
   <script src="js/main.js"></script>
 </html>

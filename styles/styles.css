@@ -1,5 +1,23 @@
 body {
   margin: 0 auto;
+  background-color: #f0fffc;
+  padding-top: 50px;
+}
+
+.etch-a-sketch {
+  margin: 0 auto;
+  background-color: crimson;
+  width: 490px;
+  padding-top: 20px;
+  padding-bottom: 85px;
+  border-radius: 40px;
+  border: 3px solid #ad1a00;
+  box-shadow: 0px 6px 18px 0px #999;
+  margin-bottom: 200px;
+}
+
+.etch-a-sketch:hover {
+  box-shadow: 0px 6px 22px 0px #999;
 }
 
 .grid-container {
@@ -7,8 +25,9 @@ body {
   flex-wrap: wrap;
   width: 600px;
   height: 600px;
-  background: white;
+  background: black;
   margin: 0 auto;
+  border: 2px solid black;
 }
 
 .pixel {
@@ -22,35 +41,64 @@ body {
 }
 
 .controls-container {
-  width: 600px;
+  width: 390px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  background-color: black;
+  padding: 7px;
 }
 
 .controls-container button {
-  background-color: #f9f9f9;
+  margin-bottom: 4px;
+  background-color: #fdfdfd;
   border: 1px solid gray;
+  height: 22px;
 }
 
 .controls-container button:hover {
-  background-color: lightgreen;
-}
+  background-color: cornflowerblue;
+  color:white;}
 
 #inputFile {
   display: none;
 }
 
 #color {
+  margin-bottom: 4px;
   width: 100%;
-  background-color: #f9f9f9;
+  background-color: #fdfdfd;
   border: 1px solid gray;
+  height: 28px;
 }
 
 #color:hover {
-  background-color: lightgreen;	
+  background-color: cornflowerblue;	
 }
 
-.withLabel {
-  display: flex;
+#grid {
+  margin-top: 8px;
+}
+
+.gridLabel {
+  font-size: 14px;
+  color: white;
+}
+
+.colorLabel {
+  font-size: 14px;
+  color: white;
+}
+
+.titleText {
+  text-align: center;
+  text-shadow:
+   -2px -2px 0 #ad1a00,  
+    2px -2px 0 #ad1a00,
+    -2px 2px 0 #ad1a00,
+     2px 2px 0 #ad1a00;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
 }
