@@ -11,16 +11,17 @@
     <div class="grid-container" ondragstart="return false">
     </div>
     <div class="controls-container">
+      <label for="color">Paint Color:</label>
       <input type="color" id="color" name="color">
       <button class="clearBtn">Clear</button>
       <button class="eraseBtn">Erase</button>
-      <button id="downloadBtn">Save</button>
-      <input type="file" name="inputFile" id="inputFile">
-      <label for="color">Color</label>
-      <input type="range" id="grid" name="grid" min="8" max="64">
-      <label for="grid">Grid Size</label>
+      <button id="downloadBtn">Save Image</button>
+      <button class='loadFileBtn'>Load Image</button>
+      <input type="file" name="inputFile" id="inputFile" title=" ">
       <button class="lightenBtn">Lighten Off</button>
       <button class="darkenBtn">Darken Off</button>
+      <input type="range" id="grid" name="grid" min="8" max="64">
+      <label for="grid">Grid Size: <span class="gridValue">36x36</span></label>
     </div>
   </body>
   <script src="js/main.js"></script>

@@ -17,12 +17,8 @@ body {
   box-shadow: 0px 0px 1px 0px #cfcfcf;
 }
 
-.pixel-outline {
-
-}
-
 .pixel:hover {
-  background-color: crimson;
+  background-color: green;
 }
 
 .controls-container {
@@ -34,8 +30,27 @@ body {
 
 .controls-container button {
   background-color: #f9f9f9;
+  border: 1px solid gray;
 }
 
 .controls-container button:hover {
   background-color: lightgreen;
+}
+
+#inputFile {
+  display: none;
+}
+
+#color {
+  width: 100%;
+  background-color: #f9f9f9;
+  border: 1px solid gray;
+}
+
+#color:hover {
+  background-color: lightgreen;	
+}
+
+.withLabel {
+  display: flex;
 }

@@ -11,6 +11,7 @@ let loadData = [];
 const gridContainer = document.querySelector('.grid-container');
 const clearBtn = document.querySelector('.clearBtn');
 const downloadBtn = document.querySelector("#downloadBtn");
+const loadFileBtn = document.querySelector(".loadFileBtn")
 const fileBtn = document.querySelector("#inputFile");
 const gridSize = document.querySelector("#grid");
 const lightenBtn = document.querySelector(".lightenBtn");
@@ -29,6 +30,11 @@ clearBtn.addEventListener("click", function() {
 //Event listener for downloading current canvas image file
 downloadBtn.addEventListener("click", function() {
   downloadData(canvasData, "pixel_data.txt")
+});
+
+//Better styled button sends click to invisible file input
+loadFileBtn.addEventListener("click", function() {
+  fileBtn.click()
 });
 
 //Event listener for loading pixel art file
