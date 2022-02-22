@@ -2,14 +2,17 @@ console.log("Main loaded")
 
 //Init variables - should be set dynamically
 let paintColor = "#000000";
+let lastColor = "#000000";
 let dim = 36;
 let canvasSize = 400;
 let shadeUp = false;
 let shadeDown = false;
+let erase = false;
 let canvasData = [];
 let loadData = [];
 const gridContainer = document.querySelector('.grid-container');
-const clearBtn = document.querySelector('.clearBtn');
+const eraseBtn = document.querySelector(".eraseBtn");
+const clearBtn = document.querySelector(".clearBtn");
 const downloadBtn = document.querySelector("#downloadBtn");
 const loadFileBtn = document.querySelector(".loadFileBtn")
 const fileBtn = document.querySelector("#inputFile");
@@ -18,6 +21,19 @@ const lightenBtn = document.querySelector(".lightenBtn");
 const darkenBtn = document.querySelector(".darkenBtn");
 const gridValue = document.querySelector(".gridValue");
 
+//Erase button listener that keeps last color while erasing back to white
+eraseBtn.addEventListener("click", function() {
+  erase = !erase;
+  if(erase) {
+  	eraseBtn.innerText = "ERASE ON";
+  	paintColor = "#FFFFFF";
+  } else {
+    eraseBtn.innerText = "ERASE OFF";
+  	paintColor = lastColor;
+  }
+});
+
+//Clears the entire canvas
 clearBtn.addEventListener("click", function() {
   shadeUp = false;
   shadeDown = false;
@@ -33,7 +49,7 @@ downloadBtn.addEventListener("click", function() {
   downloadData(canvasData, "pixel_data.txt")
 });
 
-//Better styled button sends click to invisible file input
+//Typical styled button sends click to invisible file input
 loadFileBtn.addEventListener("click", function() {
   fileBtn.click()
 });
@@ -61,26 +77,28 @@ gridSize.addEventListener("change", (e) => {
   gridValue.innerText = `${e.target.value}x${e.target.value}`;
 });
 
+//Event Listener for lightening pixels
 lightenBtn.addEventListener("click", function() {
   shadeUp = !shadeUp;
   shadeDown = false;
-  darkenBtn.innerText = "Darken Off";
+  darkenBtn.innerText = "DARKEN OFF";
   if(shadeUp) {
-    lightenBtn.innerText = "Lighten On";
+    lightenBtn.innerText = "LIGHTEN ON";
   } else {
-  	lightenBtn.innerText = "Lighten Off";
+  	lightenBtn.innerText = "LIGHTEN OFF";
   }
   console.log(shadeUp);
 });
 
+//Event listener for darkening pixels
 darkenBtn.addEventListener("click", function() {
   shadeDown = !shadeDown;
   shadeUp = false;
-  lightenBtn.innerText = "Lighten Off";
+  lightenBtn.innerText = "LIGHTEN OFF";
   if(shadeDown){
-  	darkenBtn.innerText = "Darken On";
+  	darkenBtn.innerText = "DARKEN ON";
   } else {
-  	darkenBtn.innerText = "Darken Off";
+  	darkenBtn.innerText = "DARKEN OFF";
   }
   console.log(shadeDown);
 });
@@ -96,6 +114,7 @@ function main() {
 //Updates paint variable whenever the color picker is changed
 function watchColorPicker(e) {
   paintColor = e.target.value;
+  lastColor = paintColor;
   console.log(paintColor);
 }
 
@@ -136,9 +155,9 @@ function addPixelEvents(color) {
       let currentColor = RGBToHex(pixel.style.backgroundColor);
       if(shadeUp){
         console.log(currentColor);
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, 15);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, 20);
       } else if (shadeDown) {
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, -15);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, -20);
       } else {
         pixel.style.backgroundColor = paintColor;
         canvasData[parseInt(pixel.id)] = paintColor; 	
@@ -149,9 +168,9 @@ function addPixelEvents(color) {
       let currentColor = RGBToHex(pixel.style.backgroundColor);
       if(shadeUp){
         console.log(currentColor);
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, 15);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, 20);
       } else if (shadeDown) {
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, -15);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, -20);
       } else {
         pixel.style.backgroundColor = paintColor;
         canvasData[parseInt(pixel.id)] = paintColor; 	

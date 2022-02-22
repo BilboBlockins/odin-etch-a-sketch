@@ -54,6 +54,7 @@ body {
   background-color: #fdfdfd;
   border: 1px solid gray;
   height: 22px;
+  font-weight: 600;
 }
 
 .controls-container button:hover {
@@ -80,14 +81,11 @@ body {
   margin-top: 8px;
 }
 
-.gridLabel {
-  font-size: 14px;
+.gridLabel, .colorLabel {
+  font-size: 13px;
+  font-weight: 500;
   color: white;
-}
-
-.colorLabel {
-  font-size: 14px;
-  color: white;
+  margin-bottom: 3px;
 }
 
 .titleText {
