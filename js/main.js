@@ -155,9 +155,9 @@ function addPixelEvents(color) {
       let currentColor = RGBToHex(pixel.style.backgroundColor);
       if(shadeUp){
         console.log(currentColor);
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, 20);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, 23);
       } else if (shadeDown) {
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, -20);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, -16);
       } else {
         pixel.style.backgroundColor = paintColor;
         canvasData[parseInt(pixel.id)] = paintColor; 	
@@ -168,9 +168,9 @@ function addPixelEvents(color) {
       let currentColor = RGBToHex(pixel.style.backgroundColor);
       if(shadeUp){
         console.log(currentColor);
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, 20);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, 23);
       } else if (shadeDown) {
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, -20);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, -16);
       } else {
         pixel.style.backgroundColor = paintColor;
         canvasData[parseInt(pixel.id)] = paintColor; 	
@@ -237,6 +237,12 @@ function shadeColorHex(color, percent) {
   var G = parseInt(color.substring(3,5),16);
   var B = parseInt(color.substring(5,7),16);
 
+  R = (R<=0)?25:R;
+  G = (G<=0)?25:G;
+  B = (B<=0)?25:B;
+  
+  console.log(R, G, B)
+  
   R = parseInt(R * (100 + percent) / 100);
   G = parseInt(G * (100 + percent) / 100);
   B = parseInt(B * (100 + percent) / 100);
@@ -244,6 +250,8 @@ function shadeColorHex(color, percent) {
   R = (R<255)?R:255;  
   G = (G<255)?G:255;  
   B = (B<255)?B:255;
+
+  
 
   var RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
   var GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
