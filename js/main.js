@@ -46,7 +46,7 @@ clearBtn.addEventListener("click", function() {
 
 //Event listener for downloading current canvas image file
 downloadBtn.addEventListener("click", function() {
-  downloadData(canvasData, "pixel_data.txt")
+  downloadData(canvasData, "pixie-sketch_image.px")
 });
 
 //Typical styled button sends click to invisible file input
