@@ -1,6 +1,6 @@
 console.log("Main loaded")
 
-//Init variables - should be set dynamically
+//Init variables - better to set dynamically but ok
 let paintColor = "#000000";
 let lastColor = "#000000";
 let dim = 36;
@@ -62,7 +62,6 @@ fileBtn.addEventListener("input", function() {
     clearPixels(gridContainer);
     initSketch(Math.sqrt(loadData.length), canvasSize);
     addPixelEvents(paintColor);
-    console.log(loadData);
     updateCanvas(loadData);
   }
   fr.readAsText(this.files[0]);
@@ -185,7 +184,7 @@ function addPixelEvents(color) {
   });
 }
 
-//Should accept grid of colors probably
+//Function to initialize canvas
 function initSketch(dim, canvasSize) {
   const grid = document.querySelector(".grid-container");
   grid.style.width = `${canvasSize}px`;
@@ -203,7 +202,7 @@ function initSketch(dim, canvasSize) {
   }
 }
 
-//function to make a list of pixels
+//Function to make a list of pixels
 function makePixelData(initialValue, dim) {
   let pixelData  = new Array(dim*dim);
   for(let i=0; i<dim*dim; i++) {
@@ -213,30 +212,14 @@ function makePixelData(initialValue, dim) {
   return pixelData;
 }
 
-//not needed - simpler to use single dim array instead of 2d array
-function makeGrid(initialValue, dim) {
-  let gridData = [];
-  for(let i=0; i<dim; i++) {
-    let row = new Array(dim);
-    for(let j=0; j<dim; j++) {
-      row[j] = initialValue;
-    }
-    gridData.push(row)
-  }
-  return gridData;
-}
-
 //Function to shade hex colors by percentage
 function shadeColorHex(color, percent) {
- //Solid black needs to be bumped up
-  if(color === "#000000") {
-  	color = "#111111";
-  }
 
-  var R = parseInt(color.substring(1,3),16);
-  var G = parseInt(color.substring(3,5),16);
-  var B = parseInt(color.substring(5,7),16);
+  let R = parseInt(color.substring(1,3),16);
+  let G = parseInt(color.substring(3,5),16);
+  let B = parseInt(color.substring(5,7),16);
 
+  //Any zero values to get bumped up (otherwise they get stuck at 0)
   R = (R<=0)?25:R;
   G = (G<=0)?25:G;
   B = (B<=0)?25:B;
@@ -247,15 +230,14 @@ function shadeColorHex(color, percent) {
   G = parseInt(G * (100 + percent) / 100);
   B = parseInt(B * (100 + percent) / 100);
 
+  //Keep any white values from going out of range
   R = (R<255)?R:255;  
   G = (G<255)?G:255;  
   B = (B<255)?B:255;
 
-  
-
-  var RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
-  var GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
-  var BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
+  let RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
+  let GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
+  let BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
 
   return "#"+RR+GG+BB;
 }
