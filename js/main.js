@@ -37,9 +37,10 @@ eraseBtn.addEventListener("click", function() {
 clearBtn.addEventListener("click", function() {
   shadeUp = false;
   shadeDown = false;
-  lightenBtn.innerText = "Lighten Off";
-  darkenBtn.innerText = "Darken Off";
+  lightenBtn.innerText = "LIGHTEN OFF";
+  darkenBtn.innerText = "DARKEN OFF";
   clearPixels(gridContainer);
+  canvasData = [];
   initSketch(gridSize.value, canvasSize)
   addPixelEvents(paintColor);
 });
@@ -111,7 +112,6 @@ function main() {
 function watchColorPicker(e) {
   paintColor = e.target.value;
   lastColor = paintColor;
-  console.log(paintColor);
 }
 
 //Removes all pixels from canvas area
@@ -150,10 +150,10 @@ function addPixelEvents(color) {
       if(!draw) return;
       let currentColor = RGBToHex(pixel.style.backgroundColor);
       if(shadeUp){
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, 20);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, 24);
       	canvasData[parseInt(pixel.id)] = pixel.style.backgroundColor;
       } else if (shadeDown) {
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, -16);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, -14);
       	canvasData[parseInt(pixel.id)] = pixel.style.backgroundColor;
       } else {
         pixel.style.backgroundColor = paintColor;
@@ -163,10 +163,12 @@ function addPixelEvents(color) {
     pixel.addEventListener("mousedown", (e) => {
       let currentColor = RGBToHex(pixel.style.backgroundColor);
       if(shadeUp){
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, 20);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, 24);
       	canvasData[parseInt(pixel.id)] = pixel.style.backgroundColor;
+      	console.log(canvasData);
+      	
       } else if (shadeDown) {
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, -16);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, -14);
       	canvasData[parseInt(pixel.id)] = pixel.style.backgroundColor;
       } else {
         pixel.style.backgroundColor = paintColor;
@@ -221,8 +223,6 @@ function shadeColorHex(color, percent) {
   R = (R<=0)?25:R;
   G = (G<=0)?25:G;
   B = (B<=0)?25:B;
-  
-  console.log(R, G, B)
   
   R = parseInt(R * (100 + percent) / 100);
   G = parseInt(G * (100 + percent) / 100);
