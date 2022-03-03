@@ -69,7 +69,6 @@ fileBtn.addEventListener("input", function() {
 
 //Event listener for grid size change
 gridSize.addEventListener("change", (e) => {
-  console.log(e.target.value)
   clearPixels(gridContainer);
   initSketch(e.target.value, canvasSize)
   addPixelEvents(paintColor);
@@ -86,7 +85,6 @@ lightenBtn.addEventListener("click", function() {
   } else {
   	lightenBtn.innerText = "LIGHTEN OFF";
   }
-  console.log(shadeUp);
 });
 
 //Event listener for darkening pixels
@@ -99,7 +97,6 @@ darkenBtn.addEventListener("click", function() {
   } else {
   	darkenBtn.innerText = "DARKEN OFF";
   }
-  console.log(shadeDown);
 });
 
 //Main function to load drawing
@@ -153,23 +150,24 @@ function addPixelEvents(color) {
       if(!draw) return;
       let currentColor = RGBToHex(pixel.style.backgroundColor);
       if(shadeUp){
-        console.log(currentColor);
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, 23);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, 20);
+      	canvasData[parseInt(pixel.id)] = pixel.style.backgroundColor;
       } else if (shadeDown) {
       	pixel.style.backgroundColor = shadeColorHex(currentColor, -16);
+      	canvasData[parseInt(pixel.id)] = pixel.style.backgroundColor;
       } else {
         pixel.style.backgroundColor = paintColor;
         canvasData[parseInt(pixel.id)] = paintColor; 	
       }
     });
     pixel.addEventListener("mousedown", (e) => {
-      console.log(pixel);
       let currentColor = RGBToHex(pixel.style.backgroundColor);
       if(shadeUp){
-        console.log(currentColor);
-      	pixel.style.backgroundColor = shadeColorHex(currentColor, 23);
+      	pixel.style.backgroundColor = shadeColorHex(currentColor, 20);
+      	canvasData[parseInt(pixel.id)] = pixel.style.backgroundColor;
       } else if (shadeDown) {
       	pixel.style.backgroundColor = shadeColorHex(currentColor, -16);
+      	canvasData[parseInt(pixel.id)] = pixel.style.backgroundColor;
       } else {
         pixel.style.backgroundColor = paintColor;
         canvasData[parseInt(pixel.id)] = paintColor; 	
